@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api *)",
+      "Bash(make publish *)",
+      "Bash(bash --version)",
+      "Bash(chmod +x /home/coagro/git/mina-padre-liberio-front/publish.sh)",
+      "Bash(pnpm publish:pages)",
+      "WebFetch(domain:mateuspinto.github.io)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://mateuspinto.github.io/mina-padre-liberio-front/)",
+      "Bash(curl -sI https://mateuspinto.github.io/mina-padre-liberio-front/)"
+    ]
+  }
+}
