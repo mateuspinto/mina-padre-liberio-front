@@ -1,13 +1,39 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from '../../i18n/useI18n.js'
 
 const { t } = useI18n()
 const iframeKey = ref(0)
+const ultimaAtualizacao = ref(new Date())
+
+// Auto-refresh a cada 5 minutos
+const INTERVALO_MS = 5 * 60 * 1000
+let timer = null
+let ocultadoEm = null
 
 function recarregar() {
   iframeKey.value++
+  ultimaAtualizacao.value = new Date()
 }
+
+function onVisibilidade() {
+  if (document.hidden) {
+    ocultadoEm = Date.now()
+  } else if (ocultadoEm && Date.now() - ocultadoEm > INTERVALO_MS) {
+    // Voltou para a aba após mais de 5 min — recarrega
+    recarregar()
+  }
+}
+
+onMounted(() => {
+  timer = setInterval(recarregar, INTERVALO_MS)
+  document.addEventListener('visibilitychange', onVisibilidade)
+})
+
+onUnmounted(() => {
+  clearInterval(timer)
+  document.removeEventListener('visibilitychange', onVisibilidade)
+})
 </script>
 
 <template>
@@ -20,7 +46,7 @@ function recarregar() {
 
       <iframe
         :key="iframeKey"
-        src="https://minapadreliberio.brsuper.com.br/"
+        src="https://safecam.brsuper.com.br/#/cembed/09e18bf10772b7e977c366c9ed61ab21554a9b137421eda2f06f7f221e9fa24c7ce8552b7a7327799dbf93151b6f"
         class="camera-iframe"
         :title="t('camera.titulo')"
         allow="autoplay; encrypted-media; fullscreen"
@@ -32,6 +58,10 @@ function recarregar() {
     </div>
 
     <div class="camera-actions container">
+      <span class="camera-timestamp">
+        {{ ultimaAtualizacao.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) }}
+      </span>
+
       <button class="btn-recarregar" @click="recarregar" :title="t('camera.recarregar')">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
@@ -59,6 +89,7 @@ function recarregar() {
 <style scoped>
 .camera-section {
   background: linear-gradient(160deg, #1e3510 0%, #0d1a08 100%);
+  padding: var(--space-md);
 }
 
 .camera-wrapper {
@@ -66,6 +97,8 @@ function recarregar() {
   width: 100%;
   aspect-ratio: 16 / 9;
   background-color: #000;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .camera-iframe {
@@ -156,5 +189,11 @@ function recarregar() {
 
 .camera-link-ext:hover {
   color: rgba(255, 255, 255, 0.6);
+}
+
+.camera-timestamp {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.75rem;
+  margin-right: auto;
 }
 </style>
