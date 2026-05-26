@@ -8,7 +8,13 @@
       "Bash(pnpm publish:pages)",
       "WebFetch(domain:mateuspinto.github.io)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://mateuspinto.github.io/mina-padre-liberio-front/)",
-      "Bash(curl -sI https://mateuspinto.github.io/mina-padre-liberio-front/)"
+      "Bash(curl -sI https://mateuspinto.github.io/mina-padre-liberio-front/)",
+      "Bash(curl -s \"https://api.github.com/repos/mateuspinto/mina-padre-liberio-front/pages\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s \"https://api.github.com/repos/mateuspinto/mina-padre-liberio-front\")",
+      "Bash(gh workflow *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }

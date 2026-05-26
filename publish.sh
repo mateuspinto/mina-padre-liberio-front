@@ -11,6 +11,7 @@ GITHUB_REPOSITORY="$GITHUB_REPO" pnpm build
 echo "→ Publicando dist/ na branch gh-pages..."
 TMPDIR=$(mktemp -d)
 cp -r dist/. "$TMPDIR/"
+touch "$TMPDIR/.nojekyll"
 
 cd "$TMPDIR"
 git init -q

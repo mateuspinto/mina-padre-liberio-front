@@ -14,7 +14,9 @@
       "titulo": "Câmera ao Vivo",
       "badge": "AO VIVO",
       "fallback": "Câmera temporariamente indisponível. Tente recarregar a página.",
-      "recarregar": "Recarregar"
+      "recarregar": "Recarregar",
+      "tela_cheia": "Tela cheia",
+      "sair_tela_cheia": "Sair da tela cheia"
     },
     "sobre": {
       "titulo": "Sobre a Mina",

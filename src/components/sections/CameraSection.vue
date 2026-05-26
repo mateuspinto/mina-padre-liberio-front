@@ -5,8 +5,8 @@ import { useI18n } from '../../i18n/useI18n.js'
 const { t } = useI18n()
 const iframeKey = ref(0)
 const ultimaAtualizacao = ref(new Date())
+const isFullscreen = ref(false)
 
-// Auto-refresh a cada 5 minutos
 const INTERVALO_MS = 5 * 60 * 1000
 let timer = null
 let ocultadoEm = null
@@ -20,29 +20,47 @@ function onVisibilidade() {
   if (document.hidden) {
     ocultadoEm = Date.now()
   } else if (ocultadoEm && Date.now() - ocultadoEm > INTERVALO_MS) {
-    // Voltou para a aba após mais de 5 min — recarrega
     recarregar()
   }
+}
+
+function toggleFullscreen() {
+  isFullscreen.value = !isFullscreen.value
+  document.body.style.overflow = isFullscreen.value ? 'hidden' : ''
+}
+
+function onKeydown(e) {
+  if (e.key === 'Escape' && isFullscreen.value) toggleFullscreen()
 }
 
 onMounted(() => {
   timer = setInterval(recarregar, INTERVALO_MS)
   document.addEventListener('visibilitychange', onVisibilidade)
+  document.addEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
   clearInterval(timer)
   document.removeEventListener('visibilitychange', onVisibilidade)
+  document.removeEventListener('keydown', onKeydown)
+  document.body.style.overflow = ''
 })
 </script>
 
 <template>
   <section id="camera" class="camera-section">
-    <div class="camera-wrapper">
+    <div class="camera-wrapper" :class="{ 'is-fullscreen': isFullscreen }">
       <span class="badge-live" aria-label="Transmissão ao vivo">
         <span class="badge-dot" aria-hidden="true"></span>
         {{ t('camera.badge') }}
       </span>
+
+      <!-- Botão fechar visível apenas no modo fullscreen (toque em mobile) -->
+      <button v-if="isFullscreen" class="btn-close-fullscreen" @click="toggleFullscreen" aria-label="Sair da tela cheia">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+      </button>
 
       <iframe
         :key="iframeKey"
@@ -70,12 +88,18 @@ onUnmounted(() => {
         {{ t('camera.recarregar') }}
       </button>
 
-      <a
-        href="https://minapadreliberio.brsuper.com.br/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="camera-link-ext"
-      >
+      <!-- Botão tela cheia — fora da câmera, na barra de ações -->
+      <button class="btn-recarregar" @click="toggleFullscreen" :title="isFullscreen ? t('camera.sair_tela_cheia') : t('camera.tela_cheia')">
+        <svg v-if="!isFullscreen" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M1.5 1h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v4zM15.5 15h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v-4a.5.5 0 0 1 1 0v4zM1 10.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H2.707l3.647 3.646a.5.5 0 0 1-.708.708L2 12.707V15.5a.5.5 0 0 1-1 0v-4zM15.5 1h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V2.707l-3.646 3.647a.5.5 0 0 1-.708-.708L14.293 2H11.5a.5.5 0 0 1 0-1z"/>
+        </svg>
+        <svg v-else xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z"/>
+        </svg>
+        {{ isFullscreen ? t('camera.sair_tela_cheia') : t('camera.tela_cheia') }}
+      </button>
+
+      <a href="https://minapadreliberio.brsuper.com.br/" target="_blank" rel="noopener noreferrer" class="camera-link-ext">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
           <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
           <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
@@ -91,6 +115,7 @@ onUnmounted(() => {
   background: linear-gradient(160deg, #1e3510 0%, #0d1a08 100%);
 }
 
+/* === Estado normal === */
 .camera-wrapper {
   position: relative;
   width: 100%;
@@ -107,14 +132,73 @@ onUnmounted(() => {
   display: block;
 }
 
-.camera-fallback {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.9rem;
-  padding: var(--space-xl);
-  text-align: center;
+/* === Fullscreen CSS puro — portrait: rotaciona 90deg para forçar paisagem === */
+.camera-wrapper.is-fullscreen {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: unset;
+  border-radius: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Troca dimensões e rotaciona: portrait vira landscape */
+  width: 100dvh;
+  height: 100dvw;
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
-/* Badge sobreposto no canto superior esquerdo */
+/* Em landscape (celular já virado ou desktop), sem rotação */
+@media (orientation: landscape) {
+  .camera-wrapper.is-fullscreen {
+    width: 100dvw;
+    height: 100dvh;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Iframe dentro do fullscreen: mantém 16:9 centralizado */
+.camera-wrapper.is-fullscreen .camera-iframe {
+  width: min(100dvh, calc(100dvw * 16 / 9));
+  height: min(100dvw, calc(100dvh * 9 / 16));
+  flex-shrink: 0;
+}
+
+@media (orientation: landscape) {
+  .camera-wrapper.is-fullscreen .camera-iframe {
+    width: min(100dvw, calc(100dvh * 16 / 9));
+    height: min(100dvh, calc(100dvw * 9 / 16));
+  }
+}
+
+/* Botão fechar no fullscreen */
+.btn-close-fullscreen {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.85);
+  transition: background-color var(--transition);
+}
+
+.btn-close-fullscreen:hover {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: var(--color-white);
+}
+
+/* Badge AO VIVO */
 .badge-live {
   position: absolute;
   top: var(--space-md);
@@ -147,7 +231,14 @@ onUnmounted(() => {
   50%       { opacity: 0.4; transform: scale(0.7); }
 }
 
-/* Barra de ações abaixo da câmera */
+.camera-fallback {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+/* Barra de ações */
 .camera-actions {
   display: flex;
   align-items: center;
