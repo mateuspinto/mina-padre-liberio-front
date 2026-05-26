@@ -89,7 +89,6 @@ onUnmounted(() => {
 <style scoped>
 .camera-section {
   background: linear-gradient(160deg, #1e3510 0%, #0d1a08 100%);
-  padding: var(--space-md);
 }
 
 .camera-wrapper {
