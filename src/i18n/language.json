@@ -1,0 +1,81 @@
+{
+  "pt": {
+    "nav": {
+      "title": "Mina do Padre Libério",
+      "camera": "Câmera ao Vivo",
+      "sobre": "Sobre",
+      "historia": "História",
+      "visita": "Visitar",
+      "lang": "PT",
+      "menu_abrir": "Abrir menu",
+      "menu_fechar": "Fechar menu"
+    },
+    "camera": {
+      "titulo": "Câmera ao Vivo",
+      "badge": "AO VIVO",
+      "fallback": "Câmera temporariamente indisponível. Tente recarregar a página.",
+      "recarregar": "Recarregar"
+    },
+    "sobre": {
+      "titulo": "Sobre a Mina",
+      "card1": {
+        "titulo": "Nascente Sagrada",
+        "texto": "A mina foi abençoada pelo Padre Libério para nunca secar. Suas águas correm há séculos, inspirando fé e devoção em toda a região."
+      },
+      "card2": {
+        "titulo": "Entrada Gratuita",
+        "texto": "Acesso completamente livre, sem agendamento. Venha a qualquer hora e desfrute da natureza e da espiritualidade do local."
+      },
+      "card3": {
+        "titulo": "Turismo Religioso",
+        "texto": "Missas, terços e encontros religiosos acontecem regularmente. São José da Varginha é referência no turismo religioso regional."
+      }
+    },
+    "historia": {
+      "titulo": "História",
+      "marcos": [
+        {
+          "ano": "Séc. XIX",
+          "texto": "Padre Antônio Moreira Barbosa funda o povoado às margens do Ribeirão de Lages. Pela devoção a São José e pela bela vargem, o lugar recebe o nome de São José da Varginha."
+        },
+        {
+          "ano": "1881",
+          "texto": "O vilarejo é elevado à condição de distrito, vinculado ao município de Pará de Minas."
+        },
+        {
+          "ano": "Séc. XX",
+          "texto": "Padre Libério abençoa a nascente, prometendo que suas águas jamais secariam. A fé popular transforma a mina em ponto de peregrinação e contemplação."
+        },
+        {
+          "ano": "1963",
+          "texto": "Em 1º de março, São José da Varginha se emancipa, tornando-se município independente de Pará de Minas."
+        },
+        {
+          "ano": "Hoje",
+          "texto": "A Mina do Padre Libério recebe visitantes de toda a região, unindo natureza, contemplação e espiritualidade em um só lugar."
+        }
+      ]
+    },
+    "visita": {
+      "titulo": "Como Visitar",
+      "endereco_label": "Endereço",
+      "endereco": "Av. Dona Neném, s/n — Centro, São José da Varginha — MG",
+      "cep": "CEP 35.694-000",
+      "horario_label": "Horário",
+      "horario": "Livre — aberto ao público",
+      "entrada_label": "Entrada",
+      "entrada": "Gratuita",
+      "dica_label": "Como chegar",
+      "dica": "Ao entrar na cidade pela interseção principal, siga em direção ao centro. A mina fica próxima a um posto de combustível.",
+      "cta": "Abrir no Google Maps"
+    },
+    "footer": {
+      "descricao": "Patrimônio natural e religioso de São José da Varginha — MG.",
+      "redes": "Redes Sociais",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "whatsapp": "WhatsApp",
+      "copyright": "Mina do Padre Libério"
+    }
+  }
+}

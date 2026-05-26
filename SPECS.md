@@ -54,12 +54,13 @@ src/
 
 | # | ID | Componente | Conteúdo |
 |---|---|---|---|
-| 1 | `#hero` | `HeroSection` | Logo/nome, tagline, CTA para câmera |
-| 2 | `#camera` | `CameraSection` | Câmera ao vivo (iframe SafeCam) |
-| 3 | `#sobre` | `SobreSection` | Cards: nascente, acesso gratuito, missa/rosário |
-| 4 | `#historia` | `HistoriaSection` | Timeline: Padre Libério, bênção, emancipação |
-| 5 | `#visita` | `VisitaSection` | Endereço, horário, mapa embed, como chegar |
-| 6 | — | `Footer` | Links, redes sociais placeholder |
+| 1 | `#camera` | `CameraSection` | Câmera ao vivo (iframe SafeCam) — primeira coisa após a navbar |
+| 2 | `#sobre` | `SobreSection` | Cards: nascente, acesso gratuito, missa/rosário |
+| 3 | `#historia` | `HistoriaSection` | Timeline: Padre Libério, bênção, emancipação |
+| 4 | `#visita` | `VisitaSection` | Endereço, horário, mapa embed, como chegar |
+| 5 | — | `Footer` | Links, redes sociais placeholder |
+
+> Sem HeroSection separada. A câmera é o destaque principal logo abaixo da navbar.
 
 ---
 
@@ -99,44 +100,41 @@ src/
 
 ## Steps de Desenvolvimento
 
-### Step 1 — Setup do projeto base + i18n
-- [ ] Instalar `vue-router@4`: `pnpm add vue-router@4`
-- [ ] Criar `src/router/index.js` com rota `{ path: '/', component: HomeView }`
-- [ ] Configurar `main.js` com `app.use(router)`
-- [ ] Criar `src/assets/main.css`: CSS reset + variáveis de cor/fonte + utilitários mobile-first
-- [ ] Limpar boilerplate Vue (HelloWorld, logo padrão)
-- [ ] Criar `src/i18n/language.json` com todas as strings em `pt` (estrutura aninhada por seção)
-- [ ] Criar `src/i18n/useI18n.js`: composable com `locale` (ref, default `'pt'`), `t(key)` (dot-notation), `switchLocale(lang)`
-- [ ] Todos os componentes consomem texto via `t('chave')` — zero strings hardcoded nos templates
+### Step 1 — Setup do projeto base + i18n ✅
+- [x] Instalar `vue-router@4`: `pnpm add vue-router@4`
+- [x] Criar `src/router/index.js` com rota `{ path: '/', component: HomeView }`
+- [x] Configurar `main.js` com `app.use(router)`
+- [x] Criar `src/assets/main.css`: CSS reset + variáveis de cor/fonte + utilitários mobile-first
+- [x] Cores extraídas para `src/assets/colors.css`, importado em `main.css`
+- [x] Limpar boilerplate Vue (HelloWorld, logo padrão)
+- [x] Criar `src/i18n/language.json` com todas as strings em `pt` (estrutura aninhada por seção)
+- [x] Criar `src/i18n/useI18n.js`: composable com `locale` (ref, default `'pt'`), `t(key)` (dot-notation), `switchLocale(lang)`
+- [x] Todos os componentes consomem texto via `t('chave')` — zero strings hardcoded nos templates
 
-### Step 2 — Navbar
-- [ ] Componente `Navbar.vue` com: logo text "Mina do Padre Libério", links âncora para cada seção
-- [ ] Menu hamburger para mobile (toggle puro em Vue sem lib)
-- [ ] Comportamento: fundo transparente no topo → sólido ao rolar (`scroll event`)
-- [ ] Link ativo via `useScrollSpy` (IntersectionObserver nas seções)
-- [ ] Acessibilidade: `aria-label`, `role="navigation"`, foco visível
+### Step 2 — Navbar ✅
+- [x] Componente `Navbar.vue` com: logo text "Mina do Padre Libério", links âncora para cada seção
+- [x] Menu hamburger para mobile (toggle puro em Vue sem lib)
+- [x] Navbar sempre com fundo sólido (sem efeito transparente — câmera começa logo abaixo)
+- [x] Link ativo via `useScrollSpy` (scroll + `getBoundingClientRect`)
+- [x] Seletor de idioma placeholder (ícone globo + sigla `PT`)
+- [x] Acessibilidade: `aria-label`, `role="navigation"`, `aria-expanded`, foco visível
 
-### Step 3 — HeroSection
-- [ ] Fundo: gradiente verde escuro ou imagem de placeholder da mina
-- [ ] Título: "Mina do Padre Libério", subtítulo: "Uma nascente abençoada no coração de São José da Varginha"
-- [ ] CTA button: "Ver Câmera ao Vivo" → scroll para `#camera`
-- [ ] Chevron animado scroll-down
+### Step 3 — CameraSection ✅
+- [x] `<iframe>` apontando para `https://minapadreliberio.brsuper.com.br/`
+- [x] Aspect ratio `16:9` responsivo via `aspect-ratio: 16/9`
+- [x] Fallback text se iframe bloqueado (`allow="autoplay"`, sem sandbox restritivo)
+- [x] Badge "AO VIVO" animado (pulse vermelho)
+- [x] Botão recarregar (força remount do iframe via `:key`)
+- [x] Link "Abrir em nova aba" como escape caso iframe seja bloqueado
 
-### Step 4 — CameraSection
-- [ ] `<iframe>` apontando para `https://minapadreliberio.brsuper.com.br/`
-- [ ] Aspect ratio `16:9` responsivo via `padding-bottom: 56.25%` + `position: absolute`
-- [ ] Fallback text se iframe bloqueado (`allow="autoplay"`, `sandbox` mínimo necessário)
-- [ ] Badge "AO VIVO" animado (pulse vermelho)
-- [ ] Aviso de recarregar se stream parar
-
-### Step 5 — SobreSection
+### Step 4 — SobreSection
 - [ ] 3 cards horizontais (mobile: coluna, tablet+: linha):
   - **Nascente Sagrada** — água que nunca seca, bênção do Padre Libério
   - **Entrada Gratuita** — acesso livre, sem agendamento
   - **Turismo Religioso** — missas, terços, referência regional
 - [ ] Ícones SVG inline por card
 
-### Step 6 — HistoriaSection
+### Step 5 — HistoriaSection
 - [ ] Timeline vertical (mobile) → horizontal (desktop)
 - [ ] Marcos:
   - **Séc. XIX** — Padre Antônio Moreira Barbosa funda o povoado de São José da Varginha
@@ -146,17 +144,17 @@ src/
   - **Hoje** — Mina como ponto de turismo religioso e natural
 - [ ] Foto placeholder em cada marco (substituível por real)
 
-### Step 7 — VisitaSection
+### Step 6 — VisitaSection
 - [ ] Card de informações: endereço, horário (livre), entrada (gratuita), dicas de acesso
 - [ ] Embed Google Maps com pino em São José da Varginha (iframe público)
 - [ ] Botão "Como Chegar" → abre Google Maps app/web
 
-### Step 8 — Footer
+### Step 7 — Footer
 - [ ] Nome do município, créditos
 - [ ] Links placeholder: Instagram, Facebook, WhatsApp
 - [ ] Copyright year dinâmico (`new Date().getFullYear()`)
 
-### Step 9 — Polimento & QA
+### Step 8 — Polimento & QA
 - [ ] Testar todos os breakpoints: 375px, 480px, 768px, 1024px, 1440px
 - [ ] Verificar contraste de cor (WCAG AA mínimo)
 - [ ] Meta tags SEO: `title`, `description`, `og:image`, `og:title`
