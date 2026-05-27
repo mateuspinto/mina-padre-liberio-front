@@ -112,7 +112,7 @@ onUnmounted(() => {
 
 <style scoped>
 .camera-section {
-  background: linear-gradient(160deg, #1e3510 0%, #0d1a08 100%);
+  background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 }
 
 /* === Estado normal === */

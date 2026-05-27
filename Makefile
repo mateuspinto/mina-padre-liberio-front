@@ -4,7 +4,10 @@ REMOTE := $(shell git remote get-url origin)
 # Extrai "usuario/repo" de URLs SSH ou HTTPS do GitHub
 GITHUB_REPO := $(shell echo "$(REMOTE)" | sed -E 's|.*github\.com[:/]([^/]+/[^/.]+)(\.git)?.*|\1|')
 
-.PHONY: publish
+.PHONY: dev publish
+
+dev:
+	pnpm dev
 
 publish:
 	@echo "→ Build (base=/$(word 2,$(subst /, ,$(GITHUB_REPO)))/)"

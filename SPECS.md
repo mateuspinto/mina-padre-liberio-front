@@ -127,16 +127,16 @@ src/
 - [x] Botão recarregar (força remount do iframe via `:key`)
 - [x] Link "Abrir em nova aba" como escape caso iframe seja bloqueado
 
-### Step 4 — SobreSection
-- [ ] 3 cards horizontais (mobile: coluna, tablet+: linha):
+### Step 4 — SobreSection ✅
+- [x] 3 cards horizontais (mobile: coluna, tablet+: linha):
   - **Nascente Sagrada** — água que nunca seca, bênção do Padre Libério
   - **Entrada Gratuita** — acesso livre, sem agendamento
   - **Turismo Religioso** — missas, terços, referência regional
-- [ ] Ícones SVG inline por card
+- [x] Ícones SVG inline por card
 
-### Step 5 — HistoriaSection
-- [ ] Timeline vertical (mobile) → horizontal (desktop)
-- [ ] Marcos:
+### Step 5 — HistoriaSection ✅
+- [x] Timeline vertical (mobile) → horizontal (desktop)
+- [x] Marcos:
   - **Séc. XIX** — Padre Antônio Moreira Barbosa funda o povoado de São José da Varginha
   - **1881** — Elevação a distrito de Pará de Minas
   - **Indeterminado** — Padre Libério abençoa a nascente
@@ -144,10 +144,10 @@ src/
   - **Hoje** — Mina como ponto de turismo religioso e natural
 - [ ] Foto placeholder em cada marco (substituível por real)
 
-### Step 6 — VisitaSection
-- [ ] Card de informações: endereço, horário (livre), entrada (gratuita), dicas de acesso
-- [ ] Embed Google Maps com pino em São José da Varginha (iframe público)
-- [ ] Botão "Como Chegar" → abre Google Maps app/web
+### Step 6 — VisitaSection ✅
+- [x] Card de informações: endereço, horário (livre), entrada (gratuita), dicas de acesso
+- [x] Embed Google Maps com pino em São José da Varginha (iframe público)
+- [x] Botão "Como Chegar" → abre Google Maps app/web
 
 ### Step 7 — Footer
 - [ ] Nome do município, créditos
