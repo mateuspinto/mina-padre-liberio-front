@@ -5,10 +5,17 @@
       "camera": "Câmera ao Vivo",
       "sobre": "Sobre",
       "historia": "História",
+      "velario": "Velário Virtual",
       "visita": "Visitar",
       "lang": "PT",
       "menu_abrir": "Abrir menu",
       "menu_fechar": "Fechar menu"
+    },
+    "velario": {
+      "titulo": "Velário Virtual",
+      "descricao": "A vela virtual representa o seu desejo de acender uma vela real suplicando a intercessão de Pe. Libério. Os pedidos realizados serão lembrados nas Missas. A vela permanece acesa por 7 dias.",
+      "oracao": "Venerável Servo de Deus Padre Libério, rogai por nós!",
+      "fallback": "O velário virtual está temporariamente indisponível. Acesse peliberio.com.br/acenda-uma-vela/"
     },
     "camera": {
       "titulo": "Câmera ao Vivo",

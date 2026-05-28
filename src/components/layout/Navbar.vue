@@ -4,12 +4,13 @@ import { useI18n } from '../../i18n/useI18n.js'
 import { useScrollSpy } from '../../composables/useScrollSpy.js'
 
 const { t } = useI18n()
-const { activeSection } = useScrollSpy(['camera', 'sobre', 'historia', 'visita'])
+const { activeSection } = useScrollSpy(['camera', 'velario', 'sobre', 'historia', 'visita'])
 
 const menuOpen = ref(false)
 
 const links = [
   { id: 'camera' },
+  { id: 'velario' },
   { id: 'sobre' },
   { id: 'historia' },
   { id: 'visita' },
