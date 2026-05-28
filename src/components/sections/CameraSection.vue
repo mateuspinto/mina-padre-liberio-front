@@ -112,14 +112,17 @@ onUnmounted(() => {
 
 <style scoped>
 .camera-section {
+  /* padding ×2 + altura do botão (0.8rem font + 0.5rem padding ×2) */
+  --actions-height: 3.4rem;
   background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
 }
 
 /* === Estado normal === */
 .camera-wrapper {
   position: relative;
-  width: 100%;
+  width: min(100%, calc((100dvh - var(--navbar-height) - var(--actions-height)) * 16 / 9));
   aspect-ratio: 16 / 9;
+  margin: 0 auto;
   background-color: #000;
   border-radius: 10px;
   overflow: hidden;
@@ -130,6 +133,7 @@ onUnmounted(() => {
   height: 100%;
   border: none;
   display: block;
+  pointer-events: none;
 }
 
 /* === Fullscreen CSS puro — portrait: rotaciona 90deg para forçar paisagem === */
